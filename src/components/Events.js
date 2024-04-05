@@ -57,7 +57,7 @@ const Events = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [setEvents]);
 
   if (isLoading) {
     return (
