@@ -1,0 +1,119 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 60px);
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+p {
+    font-size: 1.2em;
+    color: #555;
+    line-height: 1.6;
+}
+
+section {
+    margin-top: 50px;
+}gi
+h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+iframe {
+    max-width: 100%;
+    border: none;
+}
+
+@keyframes rotateAnimation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .image-section-spin img {
+    animation: rotateAnimation 10s linear infinite;
+  }
+  
+
+.image-section {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0%;
+}
+
+.box {
+    border: 1px solid black;
+    padding: 20px;
+    margin: 20px;
+    width: 200px;
+    height: 200px;
+    background-color: lightgrey;
+}
+
+
+.image-section img {
+    max-height: 60vh;
+    width: auto;
+    border-radius: 10px;
+}
+
+.home-background-image {
+    background-image: linear-gradient(to right, black , gray); 
+    background-image: url('./bluesville.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw; 
+}
+
+/* Larger screens */
+@media (min-width: 1024px) {
+    .home-background-image {
+        background-size: cover;
+        background-position: top center;
+    }
+}
+
+/* Smaller screens */
+@media (max-width: 600px) {
+    .home-background-image {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        height: 100vh;
+        width: 100vw; 
+    }
+    .image-section {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+    }
+}

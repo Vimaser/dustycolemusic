@@ -1,0 +1,86 @@
+/* Events.css */
+
+/* Styles for the outer container with class events-background */
+.events-background {
+  background-color: slategray;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styles for the section containing the events */
+.events-background section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Styles for each event article */
+.events-background article {
+  background-color: #333;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  width: calc(33% - 20px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media only screen and (max-width: 768px) {
+  .events-background article {
+    width: calc(50% - 20px);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .events-background article {
+    width: 100%;
+  }
+}
+
+/* Styles for the section containing the heading */
+.events-background h1 {
+  color: #ccc;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Styles for the event title within each article */
+.events-background article h2 {
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+/* Styles for the event date paragraph within each article */
+.events-background article p {
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+/* Styles for the "No upcoming events" message */
+.events-background > p {
+  color: #ccc;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.image-section-spin img {
+  animation: rotateAnimation 10s linear infinite;
+}

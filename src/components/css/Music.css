@@ -1,0 +1,75 @@
+/* Music.css */
+/* Styles for the outer container with class music-background */
+.music-background {
+    background-color: slategray;
+    padding: 20px;
+  }
+  
+  .music-container {
+    background-color: slategray;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .music-container h1 {
+    background-color: slategray;
+    color: #ccc;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .music-item {
+    background-color: black;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+  }
+  
+  .music-item h2 {
+    background-color: black;
+    color: #ccc;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .music-item p {
+    background-color: black;
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .music-item .iframe-container {
+    /* IDK probably not needed. I suck at CSS don't judge me! */
+  }
+  
+  /* Styles for the "Listen Here" link within each music item */
+  .music-item a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  /* Styles for the "Listen Here" link on hover */
+  .music-item a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+  }
+  
+  @keyframes rotateAnimation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .image-section-spin img {
+    animation: rotateAnimation 10s linear infinite;
+  }
