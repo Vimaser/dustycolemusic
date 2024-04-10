@@ -1,7 +1,20 @@
 * {
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
 }
+
+body {
+    /* Apply background image styles to the body */
+    background-image: url('./bluesville.jpg'), linear-gradient(to right, black, gray); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+  }
+  
 
 .container {
     max-width: 1200px;
@@ -78,17 +91,6 @@ iframe {
     max-height: 60vh;
     width: auto;
     border-radius: 10px;
-}
-
-.home-background-image {
-    background-image: linear-gradient(to right, black , gray); 
-    background-image: url('./bluesville.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
-    width: 100vw; 
 }
 
 /* Larger screens */

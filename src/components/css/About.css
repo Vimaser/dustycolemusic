@@ -1,7 +1,4 @@
 .about-container {
-  background-color: slategray;
-  background-image: linear-gradient(to right, black, gray), url('./bluesville.jpg');
-  background-image: url('./bluesville.jpg');
   padding: 40px;
   font-family: 'Arial', sans-serif;
   display: flex;
@@ -10,44 +7,37 @@
   justify-content: center;
   text-align: center;
   gap: 20px;
-  }
-  
-  .about-container h1 {
-    
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #a43d4c;
-    font-family: 'Arial Black', Gadget, sans-serif;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  .about-container p {
-    
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #a43d4c;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
-  .about-background-image {
-    background-image: linear-gradient(to right, black, gray), url('./bluesville.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100vh;
-    width: 100vw; 
 }
-  
-  @keyframes rotateAnimation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+
+.about-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #a43d4c;
+  font-family: 'Arial Black', Gadget, sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.about-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #a43d4c;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.full-page-about {
+  height: 100vh;
+  width: 100vw; 
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
   }
-  
-  .image-section-spin img {
-    animation: rotateAnimation 10s linear infinite;
+  to {
+    transform: rotate(360deg);
   }
+}
+
+.image-section-spin img {
+  animation: rotateAnimation 10s linear infinite;
+}

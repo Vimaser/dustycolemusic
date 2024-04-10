@@ -18,7 +18,8 @@ import {
   Admin,
   Login,
   Events,
-  Jukebox
+  Jukebox,
+  GuitarRepair
 } from "./components";
 import { EventsProvider } from "./components/contexts/EventsContext";
 import { MusicProvider } from "./components/contexts/MusicContext";
@@ -64,6 +65,7 @@ const AppContent = () => {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/guitarRepair" element={<GuitarRepair />} />
         <Route path="/login" element={<Login />} />
         <Route path="/jukebox" element={<Jukebox />} />
         <Route

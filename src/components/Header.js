@@ -29,6 +29,7 @@ const Header = ({ hasNewMessages }) => {
           <Link to="/events" onClick={() => setIsMenuOpen(false)}>Events</Link>
           <Link to="/gallery" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
           <Link to="/about" onClick={() => setIsMenuOpen(false)}>About</Link>
+          <Link to="/guitarRepair" onClick={() => setIsMenuOpen(false)}>Services</Link>
           <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
           {user && <Logout />}
         </div>

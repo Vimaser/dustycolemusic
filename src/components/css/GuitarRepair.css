@@ -1,0 +1,22 @@
+  .guitar-repair-container {
+    color: #FFFFFF;
+    background: black;
+    padding: 20px;
+  }
+  
+  .guitar-repair-container h1 {
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+  }
+  
+  .guitar-repair-container p {
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  }
+  
+  /* Customize the Carousel as needed */
+/*   .carousel-item {
+
+  } */
+  

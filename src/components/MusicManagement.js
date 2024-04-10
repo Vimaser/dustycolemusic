@@ -6,9 +6,8 @@ const MusicManagement = () => {
   const [musicArtist, setMusicArtist] = useState("");
   const [musicURL, setMusicURL] = useState("");
   const [musicReleaseDate, setMusicReleaseDate] = useState("");
-  const { handleMusicUpload } = useMusic();
 
-  // const { music, handleMusicUpload, handleDeleteMusic } = useMusic();
+  const { handleMusicUpload } = useMusic();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,24 +66,6 @@ const MusicManagement = () => {
         </div>
         <button type="submit">Add Music</button>
       </form>
-
-{/*       <div>
-        {music.map((musicItem) => (
-          <div key={musicItem.id}>
-            <h3>{musicItem.title}</h3>
-            <p>{musicItem.artist}</p>
-            {musicItem.url && (
-              <div
-                className="iframe-container"
-                dangerouslySetInnerHTML={{ __html: musicItem.url }}
-              />
-            )}
-            <button onClick={() => handleDeleteMusic(musicItem.id)}>
-              Delete
-            </button>
-          </div>
-        ))}
-      </div> */}
     </section>
   );
 };

@@ -13,3 +13,5 @@ export { default as EventManagement } from "./EventManagement";
 export { default as MusicManagement } from "./MusicManagement";
 export { default as GalleryManagement } from "./GalleryManagement";
 export { default as Jukebox } from "./Jukebox";
+export { default as GuitarRepair } from "./GuitarRepair";
+
