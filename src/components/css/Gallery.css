@@ -1,105 +1,112 @@
 /* Gallery.css */
 .gallery-container {
-    background-color: slategray;
-    padding: 20px;
-  }
-  
-  .gallery-header {
-    text-align: center;
-  }
+  background-color: slategray;
+  padding: 20px;
+}
 
-  .gallery-header h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .gallery-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    justify-content: start;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .gallery-item {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-  
-  /* Styles for the gallery image */
-  .gallery-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  
-  .gallery-item figcaption {
-    font-size: 14px;
-    text-align: center;
-    padding: 10px;
-  }
-  
-  .gallery-container.loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px;
-    font-size: 18px;
-  }
+.gallery-header {
+  text-align: center;
+}
 
-  .gallery-container.error {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px;
-    font-size: 18px;
-    color: red;
-  }
+.gallery-header h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.gallery-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  justify-content: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gallery-item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  position: relative;
+  padding-top: 56.25%; /* 16:9 */
+}
+
+.gallery-item img, .gallery-item video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-item figcaption {
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+  color: white;
+}
+
+.gallery-container.loading, .gallery-container.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: 18px;
+  color: red;
+}
 
 /* Modal.css */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: relative;
+  width: auto;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.modal-media, .modal-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #fff;
+  z-index: 1051;
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
   }
-  
-  .modal {
-    position: relative;
+  to {
+    transform: rotate(360deg);
   }
-  
-  .modal-image {
-    object-fit: cover;
-  }
-  
-  .modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    font-size: 24px;
-    color: #fff;
-  }
-  
-  @keyframes rotateAnimation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .image-section-spin img {
-    animation: rotateAnimation 10s linear infinite;
-  }
+}
+
+.image-section-spin img {
+  animation: rotateAnimation 10s linear infinite;
+}

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
-import { app } from "../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-/* import LazyLoad from 'react-lazyload'; */
-import img from "../img/youngOutlaw.png";
+import { app } from "../firebase";
 import "./css/Gallery.css";
 import GalleryManagement from "./GalleryManagement";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Gallery = () => {
-  const [images, setImages] = useState([]);
+  const [mediaItems, setMediaItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMedia, setSelectedMedia] = useState(null);
+  const [modalShow, setModalShow] = useState(false);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -20,83 +21,46 @@ const Gallery = () => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       setIsUserLoggedIn(!!user);
       if (user) {
-        fetchImages();
+        fetchMedia();
       }
     });
 
-    return () => {
-      unsubscribeAuth();
-    };
+    return () => unsubscribeAuth();
   }, []);
 
-  const fetchImages = async () => {
+  const fetchMedia = async () => {
     try {
       const storage = getStorage(app);
       const galleryRef = ref(storage, "gallery/");
       const result = await listAll(galleryRef);
-      const galleryImageUrls = await Promise.all(
+      const urls = await Promise.all(
         result.items.map(async (itemRef) => {
-          try {
-            const url = await getDownloadURL(itemRef);
-            return { url, title: "" };
-          } catch (error) {
-            console.error("Error fetching individual image URL:", error);
-            return null;
-          }
+          const url = await getDownloadURL(itemRef);
+          const fileType = itemRef.name.split('.').pop();
+          return { url, fileType, title: itemRef.name };
         })
       );
 
-      setImages(galleryImageUrls.filter(Boolean));
+      setMediaItems(urls);
     } catch (error) {
-      console.error("Error fetching images:", error);
-      setError("Failed to fetch images.");
+      console.error("Error fetching media:", error);
+      setError("Failed to fetch media.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Function to close the modal
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const handleShow = (item) => {
+    setSelectedMedia(item);
+    setModalShow(true);
   };
 
-  useEffect(() => {
-    // Attach event listener to close the modal when clicking outside the modal
-    const handleOutsideClick = (event) => {
-      if (isModalOpen && event.target.classList.contains("modal-overlay")) {
-        closeModal();
-      }
-    };
+  const handleClose = () => {
+    setModalShow(false);
+  };
 
-    window.addEventListener("click", handleOutsideClick);
-
-    // Cleanup event listener when the component unmounts
-    return () => {
-      window.removeEventListener("click", handleOutsideClick);
-    };
-  }, [isModalOpen]);
-
-  useEffect(() => {
-    // Attach event listener to close the modal when clicking on the image
-    const modalImage = document.querySelector(".modal-image");
-    const handleImageClick = () => {
-      closeModal();
-    };
-
-    if (modalImage) {
-      modalImage.addEventListener("click", handleImageClick);
-    }
-
-    // Cleanup event listener when the component unmounts or when the modal closes
-    return () => {
-      if (modalImage) {
-        modalImage.removeEventListener("click", handleImageClick);
-      }
-    };
-  }, [isModalOpen]);
-
-  if (loading) return <div className="gallery-container">Loading...</div>;
-  if (error) return <div className="gallery-container">{error}</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="gallery-container">
@@ -105,48 +69,33 @@ const Gallery = () => {
         <h1>Gallery</h1>
       </section>
       <section className="gallery-content">
-        {images.map((image, index) => (
-          <figure
-            key={index}
-            className="gallery-item"
-            onClick={() => {
-              setSelectedImage(image);
-              setIsModalOpen(true);
-            }}
-          >
-            <img
-              src={image.url}
-              alt={image.title || `Gallery item ${index + 1}`}
-              loading="lazy"
-            />
-            {image.title && <figcaption>{image.title}</figcaption>}
-          </figure>
+        {mediaItems.map((item, index) => (
+          <div key={index} className="gallery-item" onClick={() => handleShow(item)}>
+            {item.fileType === 'mp4' ? (
+              <video controls src={item.url} alt={item.title || `Gallery item ${index + 1}`} />
+            ) : (
+              <img src={item.url} alt={item.title || `Gallery item ${index + 1}`} />
+            )}
+          </div>
         ))}
       </section>
-      {isModalOpen && selectedImage && (
-        <div className="modal-overlay" role="dialog" aria-label="Image Modal">
-          <div className="modal">
-            <img
-              className="modal-image"
-              src={selectedImage.url}
-              alt={selectedImage.title || `Gallery item`}
-            />
-            <span
-              className="modal-close"
-              onClick={closeModal}
-              aria-label="Close"
-            >
-              ×
-            </span>
-          </div>
-        </div>
-      )}
-
-      <br />
-      <section className="image-section image-section-spin">
-        <img src={img} alt="Dan Broe" />
-      </section>
-      <br />
+      <Modal show={modalShow} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {selectedMedia?.title}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedMedia?.fileType === 'mp4' ? (
+            <video controls autoPlay src={selectedMedia?.url} style={{ width: '100%' }} />
+          ) : (
+            <img src={selectedMedia?.url} alt={selectedMedia?.title} style={{ width: '100%' }} />
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleClose}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
