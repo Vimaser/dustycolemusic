@@ -20,13 +20,15 @@ const Gallery = () => {
     const auth = getAuth(app);
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       setIsUserLoggedIn(!!user);
-      if (user) {
-        fetchMedia();
-      }
     });
 
-    return () => unsubscribeAuth();
-  }, []);
+    fetchMedia();
+
+    return () => {
+      unsubscribeAuth();
+    };
+}, []);
+
 
   const fetchMedia = async () => {
     try {
