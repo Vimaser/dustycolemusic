@@ -9,19 +9,21 @@
   gap: 20px;
 }
 
+/* Colors rusty red color: #a43d4c; Record Orange color: #FE8A3B; */
+
 .about-container h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #a43d4c;
+  color: #FE8A3B;
   font-family: 'Arial Black', Gadget, sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .about-container p {
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.6;
-  color: #a43d4c;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: #FE8A3B;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 5.5);
 }
 
 .full-page-about {
