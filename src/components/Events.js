@@ -13,40 +13,21 @@ const Events = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
-  function toStandardTime(militaryTime) {
-    if (!militaryTime) {
-      return "Time not set";
-    }
-    const [hours, minutes] = militaryTime.split(":");
-    const hoursInt = parseInt(hours, 10);
-    const suffix = hoursInt >= 12 ? "PM" : "AM";
-    const standardHours = ((hoursInt + 11) % 12) + 1;
-    return `${standardHours.toString().padStart(2, '0')}:${minutes} ${suffix}`;
-  }
-
   useEffect(() => {
     const auth = getAuth(app);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsUserLoggedIn(!!user);
     });
-
     const fetchEvents = async () => {
       try {
         const db = getFirestore(app);
         const eventsCollection = collection(db, "Events");
         const eventSnapshot = await getDocs(eventsCollection);
-        let eventsList = eventSnapshot.docs.map((doc) => {
-          const eventData = doc.data();
-          const eventDate = eventData.eventDate ? new Date(eventData.eventDate.seconds * 1000) : null;
-          return {
-            ...eventData,
-            id: doc.id,
-            eventDate,
-          };
-        });
-
-        eventsList.sort((a, b) => (a.eventDate ? a.eventDate.getTime() : 0) - (b.eventDate ? b.eventDate.getTime() : 0));
-
+        let eventsList = eventSnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        eventsList.sort((a, b) => (a.eventDate ? a.eventDate.toDate().getTime() : 0) - (b.eventDate ? b.eventDate.toDate().getTime() : 0));
         setEvents(eventsList);
       } catch (error) {
         console.error("Failed to fetch events:", error);
@@ -79,10 +60,8 @@ const Events = () => {
           events.map((event) => (
             <article key={event.id}>
               <h2>{event.eventName}</h2>
-              <p>{event.eventDate instanceof Date ? event.eventDate.toLocaleDateString() : "Date not set"}</p>
-              <p>Starting Time: {event.eventTime ? toStandardTime(event.eventTime) : "Time not set"}</p>
-              <p>Ending Time: {event.eventEndingTime ? toStandardTime(event.eventEndingTime) : "Time not set"}</p>
-              <p>{event.location}</p>
+              <p>Date: {event.eventDate ? (event.eventDate instanceof Date ? event.eventDate.toLocaleDateString() : new Date(event.eventDate).toLocaleDateString()) : "Date not set"}</p>
+              <p>Location: {event.location}</p>
               {isUserLoggedIn && (
                 <button onClick={() => handleDeleteEvent(event.id)}>
                   Delete
@@ -104,3 +83,4 @@ const Events = () => {
 };
 
 export default Events;
+

@@ -14,25 +14,27 @@ const EventManagement = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const db = getFirestore(app);
-      const eventsCollection = collection(db, "Events");
-      const eventSnapshot = await getDocs(eventsCollection);
-      let eventsList = eventSnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-
-      eventsList.sort((a, b) => {
-        const dateA = a.eventDate?.toDate ? a.eventDate.toDate() : new Date();
-        const dateB = b.eventDate?.toDate ? b.eventDate.toDate() : new Date();
-        return dateA.getTime() - dateB.getTime();
-      });
-
-      setEvents(eventsList);
+      try {
+        const db = getFirestore(app);
+        const eventsCollection = collection(db, "Events");
+        const eventSnapshot = await getDocs(eventsCollection);
+        const eventsList = eventSnapshot.docs.map((doc) => {
+          const eventData = doc.data();
+          const eventDate = eventData.eventDate ? eventData.eventDate.toDate() : null;
+          return {
+            ...eventData,
+            id: doc.id,
+            eventDate: eventDate ? eventDate.toISOString().substring(0, 10) : "", // Format date as YYYY-MM-DD
+          };
+        });
+        setEvents(eventsList);
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+      }
     };
 
     fetchEvents();
-  }, [setEvents]); // Dependency array includes setEvents
+  }, [setEvents]);
 
   const handleAddEvent = async () => {
     try {
@@ -46,14 +48,12 @@ const EventManagement = () => {
         eventTime,
         eventEndingTime,
       });
-
+      // Clear form fields after adding event
       setEventName("");
       setEventDate("");
       setLocation("");
       setEventTime("");
       setEventEndingTime("");
-
-      // fetchEvents();
     } catch (error) {
       console.error("Error adding event: ", error);
     }
